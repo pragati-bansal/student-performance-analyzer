@@ -8,4 +8,8 @@ CREATE TABLE students (
     section VARCHAR(10),
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
+CREATE TABLE subjects (
+    subject_id INT AUTO_INCREMENT PRIMARY KEY,
+    subject_name VARCHAR(50) NOT NULL UNIQUE
+);
 

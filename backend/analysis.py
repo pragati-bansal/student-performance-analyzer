@@ -76,6 +76,46 @@ def fetch_top_performers(limit=3):
     conn.close()
     return data
 
+def get_student_insights(student_name):
+    data = fetch_student_performance(student_name)
+
+    if not data:
+        return None
+
+    strengths = []
+    weaknesses = []
+    total = 0
+
+    for row in data:
+        avg = float(row["avg_percentage"])
+        total += avg
+
+        if avg >= 75:
+            strengths.append(row["subject_name"])
+        elif avg < 50:
+            weaknesses.append(row["subject_name"])
+
+    overall_avg = round(total / len(data), 2)
+
+    if overall_avg >= 75:
+        status = "Excellent"
+        recommendation = "Keep up the great work."
+    elif overall_avg >= 50:
+        status = "Average"
+        recommendation = "Focus on weaker subjects to improve."
+    else:
+        status = "Needs Improvement"
+        recommendation = "Immediate attention needed on fundamentals."
+
+    return {
+        "student": student_name,
+        "overall_average": overall_avg,
+        "status": status,
+        "strengths": strengths,
+        "weaknesses": weaknesses,
+        "recommendation": recommendation
+    }
+
 
 def export_to_csv(filename, data):
     if not data:
@@ -176,5 +216,3 @@ if __name__ == "__main__":
 
         else:
             print("❌ Invalid choice. Try again.")
-
-

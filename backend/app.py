@@ -1,4 +1,6 @@
 from flask import Flask, jsonify, request
+from analysis import get_student_insights
+
 from db_config import get_connection
 from analysis import (
     fetch_all_performance,
@@ -80,9 +82,23 @@ def add_student():
 
     return jsonify({"message": "Student added successfully"}), 201
 
+@app.route("/insights/student", methods=["GET"])
+def student_insights():
+    name = request.args.get("name")
+
+    if not name:
+        return jsonify({"error": "Student name is required"}), 400
+
+    insights = get_student_insights(name)
+
+    if not insights:
+        return jsonify({"error": "No data found for this student"}), 404
+
+    return jsonify(insights)
+
+
 
 # ---------- RUN SERVER ----------
 
 if __name__ == "__main__":
     app.run(debug=True)
-

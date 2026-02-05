@@ -48,3 +48,35 @@ if __name__ == "__main__":
     weak_subjects = get_weak_subjects(50)
     for row in weak_subjects:
         print(row)
+
+def get_performance_label(avg_percentage):
+    avg = float(avg_percentage)
+
+    if avg >= 75:
+        return "Excellent"
+    elif avg >= 50:
+        return "Average"
+    else:
+        return "Weak"
+        
+if __name__ == "__main__":
+    print("📊 Student Subject Performance:\n")
+    performance = get_student_subject_performance()
+
+    for row in performance:
+        label = get_performance_label(row["avg_percentage"])
+        print(
+            f"{row['student_name']} | {row['subject_name']} | "
+            f"{row['avg_percentage']}% | {label}"
+        )
+
+    print("\n⚠️ Weak Subjects:\n")
+    weak_subjects = get_weak_subjects(50)
+
+    for row in weak_subjects:
+        label = get_performance_label(row["avg_percentage"])
+        print(
+            f"{row['student_name']} | {row['subject_name']} | "
+            f"{row['avg_percentage']}% | {label}"
+        )
+

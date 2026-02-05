@@ -32,3 +32,15 @@ CREATE TABLE attendance (
     FOREIGN KEY (student_id) REFERENCES students(student_id),
     FOREIGN KEY (subject_id) REFERENCES subjects(subject_id)
 );
+
+CREATE VIEW student_subject_performance AS
+SELECT 
+    s.student_id,
+    s.name AS student_name,
+    sub.subject_id,
+    sub.subject_name,
+    ROUND(AVG(m.marks_obtained * 100 / m.max_marks), 2) AS avg_percentage
+FROM marks m
+JOIN students s ON m.student_id = s.student_id
+JOIN subjects sub ON m.subject_id = sub.subject_id
+GROUP BY s.student_id, sub.subject_id;

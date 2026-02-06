@@ -2,4 +2,5 @@ Flask
 flask-restx
 mysql-connector-python
 python-dotenv
+gunicorn
 

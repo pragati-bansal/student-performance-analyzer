@@ -12,6 +12,8 @@ from analysis import (
     fetch_top_performers
 )
 
+from backend.db_config import get_connection
+
 app = Flask(__name__)
 api = Api(
     app,
@@ -134,5 +136,6 @@ def student_insights():
 # ---------- RUN SERVER ----------
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(host="0.0.0.0", port=5000)
+
 

@@ -1,7 +1,13 @@
-# 🎓 Student Performance Analyzer
+<h1 align="center">Student Performance Analyzer</h1>
 
-A backend-focused analytics system built using **Python, MySQL, and Flask**, designed to analyze student academic performance and expose meaningful insights through **REST APIs** documented with **Swagger**.
+<p align="center">
+  <img src="readmepic.png" width="600" alt="Student Performance Analyzer">
+</p>
 
+<p align="center">
+A backend-focused analytics system built with <b>Python</b>, <b>MySQL</b>, and <b>Flask</b><br>
+to analyze student performance and attendance data.
+</p>
 ---
 
 ## 🚀 Features

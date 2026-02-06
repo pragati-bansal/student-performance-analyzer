@@ -28,3 +28,52 @@ A backend-focused analytics system built using **Python, MySQL, and Flask**, des
 
 ## 📂 Project Structure
 
+student-performance-analyzer/
+│
+├── backend/
+│ ├── app.py # Flask APIs & Swagger setup
+│ ├── analysis.py # Business logic & analytics
+│ ├── db_config.py # Database connection
+│
+├── database/
+│ ├── schema.sql # Database schema & views
+│ ├── sample_data.sql # Sample data for testing
+│
+├── frontend/ # (Optional frontend layer)
+│
+├── .gitignore
+└── README.md
+
+---
+
+## 📘 API Documentation (Swagger UI)
+
+After starting the server, access the **Swagger UI** at:
+
+http://127.0.0.1:5000/
+
+
+Swagger allows you to:
+- View all available APIspython backend/app.py
+
+- Enter query parameters
+- Use **Try it out** to test endpoints
+- See live JSON responses
+
+---
+
+## ▶️ How to Run the Project
+
+### 1️⃣ Clone the repository
+```bash
+git clone https://github.com/pragati-bansal/student-performance-analyzer.git
+cd student-performance-analyzer
+
+pip install -r requirements.txt
+
+source database/schema.sql;
+source database/sample_data.sql;
+
+
+
+

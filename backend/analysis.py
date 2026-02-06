@@ -1,4 +1,4 @@
-from db_config import get_connection
+from backend.db_config import get_connection
 import csv
 
 

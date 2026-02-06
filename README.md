@@ -67,6 +67,18 @@ Swagger allows you to:
 
 ## ▶️ How to Run the Project
 
+### 🔐 Environment Variables
+
+Create a `.env` file in the project root:
+
+```env
+DB_HOST=localhost
+DB_USER=root
+DB_PASSWORD=your_password
+DB_NAME=student_performance
+DB_PORT=3306
+
+
 ### 1️⃣ Clone the repository
 ```bash
 git clone https://github.com/pragati-bansal/student-performance-analyzer.git

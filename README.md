@@ -28,6 +28,7 @@ A backend-focused analytics system built using **Python, MySQL, and Flask**, des
 
 ## 📂 Project Structure
 
+
 student-performance-analyzer/
 │
 ├── backend/

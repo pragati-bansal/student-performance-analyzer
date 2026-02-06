@@ -77,6 +77,10 @@ pip install -r requirements.txt
 source database/schema.sql;
 source database/sample_data.sql;
 
+### 🔍 Swagger UI Preview
+
+![Swagger UI](assets/swagger-ui.png)
+
 
 
 

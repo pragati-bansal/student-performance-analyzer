@@ -2,10 +2,10 @@ from flask import Flask, request
 from flask_restx import Api, Resource
 from flask_restx import reqparse
 
-from analysis import get_student_insights
+from backend.analysis import get_student_insights
 
-from db_config import get_connection
-from analysis import (
+from backend.db_config import get_connection
+from backend.analysis import (
     fetch_all_performance,
     fetch_weak_subjects,
     fetch_student_performance,

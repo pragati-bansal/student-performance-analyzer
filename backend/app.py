@@ -1,4 +1,7 @@
-from flask import Flask, jsonify, request
+from flask import Flask, request
+from flask_restx import Api, Resource
+from flask_restx import reqparse
+
 from analysis import get_student_insights
 
 from db_config import get_connection
@@ -10,30 +13,60 @@ from analysis import (
 )
 
 app = Flask(__name__)
+api = Api(
+    app,
+    title="Student Performance Analyzer API",
+    version="1.0",
+    description="APIs for analyzing student academic performance"
+)
+
+ns = api.namespace(
+    "analytics",
+    description="Student performance analytics endpoints"
+)
+
+weak_parser = reqparse.RequestParser()
+weak_parser.add_argument(
+    "threshold",
+    type=int,
+    default=40,
+    help="Percentage below which subjects are considered weak",
+    location="args"
+)
+
 
 
 # ---------- BASIC CHECK ----------
 
 @app.route("/", methods=["GET"])
 def home():
-    return jsonify({
+    return {
         "message": "Student Performance Analyzer API is running"
-    })
+    }
 
 
 # ---------- GET APIs ----------
 
-@app.route("/performance", methods=["GET"])
-def get_performance():
-    data = fetch_all_performance()
-    return jsonify(data)
+@api.route("/performance")
+class Performance(Resource):
+    def get(self):
+        return fetch_all_performance()
 
 
-@app.route("/weak-subjects", methods=["GET"])
-def weak_subjects():
-    threshold = request.args.get("threshold", default=40, type=int)
-    data = fetch_weak_subjects(threshold)
-    return jsonify(data)
+@ns.route("/weak-subjects")
+class WeakSubjects(Resource):
+    @ns.expect(weak_parser)
+    def get(self):
+        args = weak_parser.parse_args()
+        threshold = args["threshold"]
+
+        data = fetch_weak_subjects(threshold)
+        for row in data:
+            row["avg_percentage"] = float(row["avg_percentage"])
+
+        return data
+
+
 
 
 @app.route("/student-performance", methods=["GET"])
@@ -41,17 +74,17 @@ def student_performance():
     name = request.args.get("name")
 
     if not name:
-        return jsonify({"error": "Student name is required"}), 400
+        return {"error": "Student name is required"}, 400
 
     data = fetch_student_performance(name)
-    return jsonify(data)
+    return data
 
 
 @app.route("/top-performers", methods=["GET"])
 def top_performers():
     limit = request.args.get("limit", default=3, type=int)
     data = fetch_top_performers(limit)
-    return jsonify(data)
+    return data
 
 
 # ---------- POST APIs (ADD DATA ONLY WHEN CALLED) ----------
@@ -65,7 +98,7 @@ def add_student():
     section = data.get("section")
 
     if not name or not student_class:
-        return jsonify({"error": "Name and class are required"}), 400
+        return {"error": "Name and class are required"}, 400
 
     conn = get_connection()
     cursor = conn.cursor()
@@ -80,21 +113,21 @@ def add_student():
     cursor.close()
     conn.close()
 
-    return jsonify({"message": "Student added successfully"}), 201
+    return {"message": "Student added successfully"}, 201
 
 @app.route("/insights/student", methods=["GET"])
 def student_insights():
     name = request.args.get("name")
 
     if not name:
-        return jsonify({"error": "Student name is required"}), 400
+        return {"error": "Student name is required"}, 400
 
     insights = get_student_insights(name)
 
     if not insights:
-        return jsonify({"error": "No data found for this student"}), 404
+        return {"error": "No data found for this student"}, 404
 
-    return jsonify(insights)
+    return insights
 
 
 
@@ -102,3 +135,4 @@ def student_insights():
 
 if __name__ == "__main__":
     app.run(debug=True)
+

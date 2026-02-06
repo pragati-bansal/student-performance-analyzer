@@ -30,22 +30,24 @@ A backend-focused analytics system built using **Python, MySQL, and Flask**, des
 
 
 student-performance-analyzer/
-│
+
+```text
+student-performance-analyzer/
 ├── backend/
-│ ├── app.py # Flask APIs & Swagger setup
-│ ├── analysis.py # Business logic & analytics
-│ ├── db_config.py # Database connection
+│   ├── app.py
+│   ├── analysis.py
+│   └── db_config.py
 │
 ├── database/
-│ ├── schema.sql # Database schema & views
-│ ├── sample_data.sql # Sample data for testing
+│   ├── schema.sql
+│   └── sample_data.sql
 │
-├── frontend/ # (Optional frontend layer)
+├── frontend/
 │
 ├── .gitignore
 └── README.md
+```
 
----
 
 ## 📘 API Documentation (Swagger UI)
 
